@@ -1,0 +1,18 @@
+scrape_configs:
+  - job_name: 'api-gateway'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:8080']  # 서비스 A
+    metrics_path: '/actuator/prometheus'
+
+  - job_name: 'auth-service'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:8081']  # 서비스 B
+    metrics_path: '/actuator/prometheus'
+
+  - job_name: 'user-service'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'host.docker.internal:8082' ]  # 서비스 B
+    metrics_path: '/actuator/prometheus'

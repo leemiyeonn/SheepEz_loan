@@ -1,0 +1,6 @@
+spring.application.name: example-storage-test
+
+spring:
+  config:
+    import:
+      - example-storage.yml
