@@ -19,3 +19,7 @@ include 'support:monitoring'
 include 'example:example-domain'
 include 'example:example-api'
 include 'example:example-storage'
+
+include 'contact:contact-domain'
+include 'contact:contact-api'
+include 'contact:contact-storage'
