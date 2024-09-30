@@ -19,3 +19,7 @@ include 'support:monitoring'
 include 'example:example-domain'
 include 'example:example-api'
 include 'example:example-storage'
+
+include 'lawyer:lawyer-api'
+include 'lawyer:lawyer-domain'
+include 'lawyer:lawyer-storage'
