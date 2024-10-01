@@ -1,4 +1,4 @@
-package com.sheep.ezloan.contact;
+package com.sheep.ezloan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

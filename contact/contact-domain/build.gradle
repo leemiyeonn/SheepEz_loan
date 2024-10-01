@@ -1,3 +1,8 @@
 dependencies {
     implementation project(":support:support-domain")
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.data:spring-data-commons' // 페이징 기능 사용
 }

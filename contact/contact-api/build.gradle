@@ -10,4 +10,7 @@ dependencies {
     runtimeOnly project(":contact:contact-storage")
 
     testImplementation project(":tests:api-docs")
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }

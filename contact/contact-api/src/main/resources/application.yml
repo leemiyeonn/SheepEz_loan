@@ -17,6 +17,9 @@ server:
       min-spare: 100
   port: 19094
 
+api:
+  prefix: "/api/v1"
+
 ---
 spring.config.activate.on-profile: local
 
