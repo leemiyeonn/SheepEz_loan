@@ -20,42 +20,43 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ApiResponse<PostResult> createPost(@RequestBody PostDto.Request postDto) {
+    public ApiResponse<PostDto.Response> createPost(@RequestBody PostDto.Request postDto) {
         PostResult post = postService.createPost(postDto.getTitle(), postDto.getContent(), postDto.getLoanType());
 
-        return ApiResponse.success(post);
+        return ApiResponse.success(PostDto.Response.of(post));
     }
 
     @GetMapping
-    public ApiResponse<Collection<PostResult>> getAllPosts(@RequestParam("page") int page,
+    public ApiResponse<Collection<PostDto.Response>> getAllPosts(@RequestParam("page") int page,
             @RequestParam("size") int size, @RequestParam("sort") String sort) {
         Collection<PostResult> posts = postService.getAllPosts(page, size, sort);
 
-        return ApiResponse.success(posts);
+
+        return ApiResponse.success(PostDto.Response.of(posts));
     }
 
     @GetMapping("/search")
-    public ApiResponse<Collection<PostResult>> searchPosts(@RequestParam("keyword") String keyword,
+    public ApiResponse<Collection<PostDto.Response>> searchPosts(@RequestParam("keyword") String keyword,
             @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("sort") String sort) {
         Collection<PostResult> posts = postService.searchPosts(keyword, page, size, sort);
 
-        return ApiResponse.success(posts);
+        return ApiResponse.success(PostDto.Response.of(posts));
     }
 
     @GetMapping("/{postUuid}")
-    public ApiResponse<PostResult> getPost(@PathVariable(value = "postUuid") UUID postUuid) {
+    public ApiResponse<PostDto.Response> getPost(@PathVariable(value = "postUuid") UUID postUuid) {
         PostResult post = postService.getPost(postUuid);
 
-        return ApiResponse.success(post);
+        return ApiResponse.success(PostDto.Response.of(post));
     }
 
     @PutMapping("/{postUuid}")
-    public ApiResponse<PostResult> updatePost(@PathVariable(value = "postUuid") UUID postUuid,
+    public ApiResponse<PostDto.Response> updatePost(@PathVariable(value = "postUuid") UUID postUuid,
             @RequestBody PostDto.Request postDto) {
         PostResult post = postService.updatePost(postUuid, postDto.getTitle(), postDto.getContent(),
                 postDto.getLoanType());
 
-        return ApiResponse.success(post);
+        return ApiResponse.success(PostDto.Response.of(post));
     }
 
     @DeleteMapping("/{postUuid}")
