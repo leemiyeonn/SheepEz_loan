@@ -4,15 +4,11 @@ import com.sheep.ezloan.contact.domain.model.LoanType;
 import com.sheep.ezloan.contact.domain.model.Post;
 import com.sheep.ezloan.contact.domain.model.PostResult;
 import com.sheep.ezloan.contact.domain.repository.PostRepository;
+import com.sheep.ezloan.support.model.DomainPage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.UUID;
 
 @Service
@@ -29,25 +25,13 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Collection<PostResult> getAllPosts(int page, int size, String sortBy) {
-        Sort.Direction direction = Sort.Direction.ASC;
-        Sort sort = Sort.by(direction, sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        Page<PostResult> postResultPage = postRepository.findAll(pageable);
-
-        return postResultPage.toList();
+    public DomainPage<PostResult> getAllPosts(int page, int size, String sortBy) {
+        return postRepository.findAll(sortBy, page, size);
     }
 
     @Transactional(readOnly = true)
-    public Collection<PostResult> searchPosts(String keyword, int page, int size, String sortBy) {
-        Sort.Direction direction = Sort.Direction.ASC;
-        Sort sort = Sort.by(direction, sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        Page<PostResult> postResultPage = postRepository.searchByKeyword(keyword, pageable);
-
-        return postResultPage.toList();
+    public DomainPage<PostResult> searchPosts(String keyword, int page, int size, String sortBy) {
+        return postRepository.searchByKeyword(keyword, sortBy, page, size);
     }
 
     @Transactional(readOnly = true)

@@ -3,8 +3,7 @@ package com.sheep.ezloan.contact.domain.repository;
 import com.sheep.ezloan.contact.domain.model.LoanType;
 import com.sheep.ezloan.contact.domain.model.Post;
 import com.sheep.ezloan.contact.domain.model.PostResult;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.sheep.ezloan.support.model.DomainPage;
 
 import java.util.UUID;
 
@@ -12,9 +11,9 @@ public interface PostRepository {
 
     PostResult save(Post post);
 
-    Page<PostResult> findAll(Pageable pageable);
+    DomainPage<PostResult> findAll(String sortBy, int page, int size);
 
-    Page<PostResult> searchByKeyword(String keyword, Pageable pageable);
+    DomainPage<PostResult> searchByKeyword(String keyword, String sortBy, int page, int size);
 
     PostResult findByUuid(UUID postUuid);
 

@@ -3,11 +3,12 @@ package com.sheep.ezloan.contact.api.controller.dto;
 import com.sheep.ezloan.contact.domain.model.LoanType;
 import com.sheep.ezloan.contact.domain.model.PostResult;
 import com.sheep.ezloan.contact.domain.model.PostStatus;
+import com.sheep.ezloan.support.model.DomainPage;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -70,8 +71,8 @@ public interface PostDto {
                 .build();
         }
 
-        public static Collection<Response> of(Collection<PostResult> posts) {
-            return posts.stream().map(Response::of).collect(Collectors.toList());
+        public static List<Response> of(DomainPage<PostResult> posts) {
+            return posts.getData().stream().map(Response::of).collect(Collectors.toList());
         }
 
     }

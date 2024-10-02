@@ -3,12 +3,13 @@ package com.sheep.ezloan.contact.api.controller;
 import com.sheep.ezloan.contact.api.controller.dto.PostDto;
 import com.sheep.ezloan.contact.domain.model.PostResult;
 import com.sheep.ezloan.contact.domain.service.PostService;
+import com.sheep.ezloan.support.model.DomainPage;
 import com.sheep.ezloan.support.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -27,17 +28,17 @@ public class PostController {
     }
 
     @GetMapping
-    public ApiResponse<Collection<PostDto.Response>> getAllPosts(@RequestParam("page") int page,
+    public ApiResponse<List<PostDto.Response>> getAllPosts(@RequestParam("page") int page,
             @RequestParam("size") int size, @RequestParam("sort") String sort) {
-        Collection<PostResult> posts = postService.getAllPosts(page, size, sort);
+        DomainPage<PostResult> posts = postService.getAllPosts(page, size, sort);
 
         return ApiResponse.success(PostDto.Response.of(posts));
     }
 
     @GetMapping("/search")
-    public ApiResponse<Collection<PostDto.Response>> searchPosts(@RequestParam("keyword") String keyword,
+    public ApiResponse<List<PostDto.Response>> searchPosts(@RequestParam("keyword") String keyword,
             @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("sort") String sort) {
-        Collection<PostResult> posts = postService.searchPosts(keyword, page, size, sort);
+        DomainPage<PostResult> posts = postService.searchPosts(keyword, page, size, sort);
 
         return ApiResponse.success(PostDto.Response.of(posts));
     }
