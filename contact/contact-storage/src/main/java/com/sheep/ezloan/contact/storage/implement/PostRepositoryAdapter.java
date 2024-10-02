@@ -50,9 +50,12 @@ public class PostRepositoryAdapter implements PostRepository {
     public PostResult update(UUID postUuid, String title, String content, LoanType loanType) {
         PostEntity entity = postJpaRepository.findById(postUuid).orElseThrow(EntityNotFoundException::new);
 
-        if(title == null) title = entity.getTitle();
-        if(content == null) content = entity.getContent();
-        if(loanType == null) loanType = entity.getLoanType();
+        if (title == null)
+            title = entity.getTitle();
+        if (content == null)
+            content = entity.getContent();
+        if (loanType == null)
+            loanType = entity.getLoanType();
 
         entity.update(title, content, loanType);
 

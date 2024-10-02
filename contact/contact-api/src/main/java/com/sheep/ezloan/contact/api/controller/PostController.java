@@ -31,7 +31,6 @@ public class PostController {
             @RequestParam("size") int size, @RequestParam("sort") String sort) {
         Collection<PostResult> posts = postService.getAllPosts(page, size, sort);
 
-
         return ApiResponse.success(PostDto.Response.of(posts));
     }
 

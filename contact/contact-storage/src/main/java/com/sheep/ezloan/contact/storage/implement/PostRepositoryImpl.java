@@ -30,5 +30,4 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         return new PageImpl<>(results, pageable, results.size());
     }
 
-
 }

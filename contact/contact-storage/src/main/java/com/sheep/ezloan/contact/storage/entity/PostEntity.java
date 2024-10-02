@@ -70,4 +70,5 @@ public class PostEntity extends BaseEntity {
         this.content = content;
         this.loanType = loanType;
     }
+
 }
