@@ -11,6 +11,7 @@ rootProject.name = 'ez-loan'
 
 include 'tests:api-docs'
 include 'support:support-api'
+include 'support:support-auth'
 include 'support:support-domain'
 include 'support:support-storage'
 include 'support:logging'
@@ -27,3 +28,11 @@ include 'contact:contact-storage'
 include 'lawyer:lawyer-api'
 include 'lawyer:lawyer-domain'
 include 'lawyer:lawyer-storage'
+
+include 'gateway:'
+
+include 'user:user-api'
+include 'user:user-domain'
+include 'user:user-storage'
+
+
