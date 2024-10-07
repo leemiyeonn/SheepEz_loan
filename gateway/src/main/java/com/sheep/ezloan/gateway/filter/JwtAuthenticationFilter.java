@@ -44,6 +44,31 @@ public class JwtAuthenticationFilter implements GlobalFilter {
         return validateTokenWithAuthServer(token, exchange, chain);
     }
 
+    private Mono<Void> handleSuccess(ServerWebExchange exchange, Map<String, Object> responseBody,
+                                     GatewayFilterChain chain) {
+        // 헤더에 유저 정보 추가
+        addHeadersToRequest(exchange, responseBody);
+
+        // JWT 토큰을 응답 본문에 추가
+        exchange.getResponse().getHeaders().add(HttpHeaders.AUTHORIZATION, "Bearer " + responseBody.get("token"));
+
+        // 체인 필터 처리
+        return chain.filter(exchange);
+    }
+
+    private void addHeadersToRequest(ServerWebExchange exchange, Map<String, Object> claims) {
+        exchange.getRequest()
+                .mutate()
+                .header("X-User-Id", claims.get("sub").toString())
+                .header("X-Role", claims.get("role").toString())
+                .header("X-USER-NAME", claims.get("username").toString());
+    }
+
+    private Mono<Void> handleUnauthorized(ServerWebExchange exchange) {
+        exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+        return exchange.getResponse().setComplete();
+    }
+
     private Mono<Void> validateTokenWithAuthServer(String token, ServerWebExchange exchange, GatewayFilterChain chain) {
         return webClientBuilder.build()
                 .post()
@@ -55,24 +80,4 @@ public class JwtAuthenticationFilter implements GlobalFilter {
                 .onErrorResume(e -> handleUnauthorized(exchange));
     }
 
-    private Mono<Void> handleSuccess(ServerWebExchange exchange, Map<String, Object> responseBody,
-                                     GatewayFilterChain chain) {
-        // 헤더에 유저 정보 추가
-        addHeadersToRequest(exchange, responseBody);
-
-        // 체인 필터 처리
-        return chain.filter(exchange);
-    }
-
-    private void addHeadersToRequest(ServerWebExchange exchange, Map<String, Object> claims) {
-        exchange.getRequest()
-                .mutate()
-                .header("X-User-Id", claims.get("sub").toString())
-                .header("X-Role", claims.get("role").toString());
-    }
-
-    private Mono<Void> handleUnauthorized(ServerWebExchange exchange) {
-        exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-        return exchange.getResponse().setComplete();
-    }
 }
