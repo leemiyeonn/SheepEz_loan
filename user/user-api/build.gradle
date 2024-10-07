@@ -1,0 +1,20 @@
+bootJar.enabled = true
+jar.enabled = false
+
+dependencies {
+    implementation project(":support:monitoring")
+    implementation project(":support:logging")
+    implementation project(":support:support-api")
+    implementation project(":support:support-auth")
+
+    implementation project(":user:user-domain")
+
+    testImplementation project(":tests:api-docs")
+
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+}
